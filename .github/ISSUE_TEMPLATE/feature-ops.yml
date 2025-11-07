@@ -1,0 +1,65 @@
+name: Feature (Operational)
+description: Prepare non-Codex operational work
+title: "[Ops] <short title>"
+labels: [atlas, p2, tshirt-s]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      placeholder: Describe the operational outcome to achieve.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |-
+        - AC-1: ...
+        - AC-2: ...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: |-
+        - repo: .
+        - language: <language/runtime>
+        - commands: <build/test commands>
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |-
+        <details>
+        <summary>Atlas Instructions</summary>
+
+        ```
+        ATLAS:REFINE
+        PURPOSE: Prepare this issue for verification or procedural execution (non-Codex).
+        OUTPUTS:
+          - acceptance_criteria
+          - environment
+        COMPLETE WHEN:
+          - Acceptance criteria are defined and verifiable.
+        STATE:
+          COMPLETE:
+            MOVE: Ready
+            ADD: [ready, atlas-prepared]
+            REMOVE: [atlas, feedback-requested]
+          INCOMPLETE:
+            MOVE: Backlog
+            ADD: [feedback-requested]
+        REVIEW:
+          PASS:
+            MOVE: Done
+          FAIL:
+            MOVE: Ready
+            ADD: [needs-fix]
+        NOTES:
+          - Use "refine" for Backlog→Ready.
+          - This issue type does not produce a Codex prompt.
+        ```
+
+        </details>

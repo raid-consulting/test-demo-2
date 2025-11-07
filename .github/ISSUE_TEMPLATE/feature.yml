@@ -1,0 +1,69 @@
+# atlas:codex
+name: Feature (Codex)
+description: Prepare Codex-driven work
+title: "[Feature] <short title>"
+labels: [atlas, p2, tshirt-s]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      placeholder: Describe the desired outcome succinctly.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |-
+        - [ ] AC-1: Describe an outcome that Atlas can verify via specific files, commands, or observable behaviour.
+        - [ ] AC-2: Include only binary pass/fail checks with all inputs, data, or expected outputs defined.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: |-
+        - repo: .
+        - language: <language/runtime>
+        - commands: <build/test commands>
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |-
+        <details>
+        <summary>Atlas Instructions</summary>
+
+        ```
+        ATLAS:REFINE
+        PURPOSE: Prepare this issue for execution by OpenAI Codex.
+        OUTPUTS:
+          - codex_prompt
+          - acceptance_criteria
+          - environment
+        COMPLETE WHEN:
+          - codex_prompt, acceptance_criteria, and environment are present and consistent.
+        STATE:
+          COMPLETE:
+            MOVE: Ready
+            ADD: [ready, atlas-prepared]
+            REMOVE: [atlas, feedback-requested]
+          INCOMPLETE:
+            MOVE: Backlog
+            ADD: [feedback-requested]
+        REVIEW:
+          PASS:
+            MOVE: Done
+          FAIL:
+            MOVE: Ready
+            ADD: [needs-fix]
+        NOTES:
+          - Atlas refines and generates the codex_prompt after acceptance criteria are complete.
+          - Acceptance criteria must be fully explicit for Atlas to verify.
+          - Human triggers Codex manually once issue is Ready.
+          - Atlas verifies output during Review.
+        ```
+
+        </details>
